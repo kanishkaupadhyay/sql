@@ -1,0 +1,68 @@
+-- SAMPLE DATA GAME TABLE
+
+    CREATE TABLE GAME
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(50) NOT NULL,
+        nickname VARCHAR(50) NOT NULL,
+        genre VARCHAR(50) NOT NULL,
+        price INT DEFAULT 20,
+        stars INT DEFAULT 0,
+        review VARCHAR(100)
+    );
+
+-- Count the number of records in a table
+
+    SELECT COUNT(<column_name>) FROM <table_name>;
+
+    SELECT COUNT(name) AS no_of_games FROM GAME;
+    SELECT COUNT(*) FROM GAME;
+
+-- Count the distinct count of records in a table
+
+    SELECT COUNT(DISCTINCT name) AS unique_games FROM GAME;
+
+-- GROUP BY summarizes or aggregates identical data into single rows
+
+    SELECT name FROM GAME GROUP BY genre;
+
+-- COUNT the rows in each GROUP
+
+    SELECT genre, COUNT(*) AS number_of_games FROM GAME GROUP BY genre;
+
+-- MIN and MAX
+
+    SELECT MIN(<column_name>) FROM <table_name>;
+
+    SELECT MIN(price) FROM GAME;
+    SELECT MAX(price) FROM GAME;
+    SELECT MAX(name) FROM GAME;
+
+-- Find the game with the highest price
+
+    SELECT number_of_games, price FROM GAME ORDER BY price DESC LIMIT 1;
+
+-- Subqueries are queries within queries
+
+    SELECT name, price FROM GAME
+    WHERE price = (SELECT MAX(price) FROM GAME);
+
+-- Grouping by multiple columns
+
+    SELECT name, nickname, COUNT(*) FROM GAME
+    GROUP BY name, nickname;
+
+-- MIN and MAX with GROUP BY
+
+    SELECT name, MIN(price) FROM GAME GROUP BY genre;
+    SELECT name, MAX(price) FROM GAME GROUP BY genre;
+
+-- SUM (add things together)
+-- SUM of VARCHAR is 0
+
+    SELECT SUM(price) FROM GAME;
+    SELECT name, SUM(price) FROM GAME GROUP BY name;
+
+-- Find averages of records in a table (AVG)
+
+    SELECT genre, AVG(price) FROM GAME GROUP BY genre;

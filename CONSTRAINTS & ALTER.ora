@@ -1,0 +1,88 @@
+-- SAMPLE DATA GAME TABLE
+
+    CREATE TABLE GAME
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(50) NOT NULL,
+        nickname VARCHAR(50) NOT NULL,
+        genre VARCHAR(50) NOT NULL,
+        price INT DEFAULT 20,
+        stars INT DEFAULT 0,
+        release DATETIME,
+        teaser_date DATE,
+        teaser_time TIME,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        review VARCHAR(100)
+    );
+
+-- Unique constraint (Cannot add duplicate entry on unique column but null allowed)
+
+    CREATE TABLE COMPANY 
+    (
+        name VARCHAR(100) NOT NULL,
+        year DATETIME,
+        phone VARCHAR(10) NOT NULL UNIQUE
+    );
+
+-- CHECK constraint
+
+    CREATE TABLE USER
+    (
+        name VARCHAR(100) NOT NULL,
+        age INT CHECK (age > 18)
+    );
+
+-- Named constraint
+
+    CREATE TABLE USER
+    (
+        name VARCHAR(100),
+        age INT,
+        CONSTRAINT age_over_18 CHECK (age > 18)
+    );
+
+-- Multiple column contraint
+
+    CREATE TABLE USER
+    (
+        first_name VARCHAR(100),
+        middle_name VARCHAR(100),
+        last_name VARCHAR(100),
+        CONSTRAINT unique_full_name UNIQUE (first_name, last_name)
+    );
+
+-- ALTER table : Adding column
+
+    ALTER TABLE USER
+    ADD COLUMN age INT NOT NULL DEFAULT 18;
+
+-- ALTER table: Dropping column
+
+    ALTER TABLE USER
+    DROP COLUMN age;
+
+-- ALTER table: Renaming column/table
+
+    ALTER TABLE USER RENAME TO USER_INFO;
+    ALTER TABLE USER 
+    RENAMING COLUMN middle_name TO nick_name;
+     
+-- ALTER table: Modifying column
+
+    ALTER TABLE USER
+    MODIFY first_name VARCHAR(50) DEFAULT 'UNNAMED';
+
+-- CHANGE columns (Use CHANGE to rename a column and change its data type)
+
+    ALTER TABLE USER
+    CHANGE first_name name VARCHAR(50);
+
+-- ALTER table: Constraints
+
+    ALTER TABLE USER 
+    ADD CONSTRAINT 'age_limit' CHECK (age > 18);
+
+-- DROP contraint
+
+    ALTER TABLE USER
+    DROP CONSTRAINT age_limit;

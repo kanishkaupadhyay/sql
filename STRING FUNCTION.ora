@@ -1,0 +1,45 @@
+-- SAMPLE DATA GAME TABLE
+
+    CREATE TABLE GAME
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(50) NOT NULL,
+        genre VARCHAR(50) NOT NULL,
+        price INT DEFAULT 20,
+        stars INT DEFAULT 0,
+        review VARCHAR(100)
+    );
+
+-- Concat (Combine data for cleaner output)
+
+    SELECT CONCAT(x,y,z) FROM <table_name>;
+
+    SELECT CONCAT(name, '-', genre) FROM GAME;
+
+-- Concat with separator
+
+    SELECT CONCAT_WS('-', name, genre) FROM GAME;
+
+-- SUBSTRING() OR SUBSTR()
+
+    SELECT SUBSTRING(name, 1, 1) AS 'Initial' FROM GAME;
+
+-- REPLACE()
+
+    SELECT REPLACE(review, '!', '?') FROM GAME;
+
+-- REVERSE()
+
+    SELECT REVERSE(name) FROM GAME;
+
+-- CHAR_LENGHT() is number of characters AND LENGTH() is number of bytes
+
+    SELECT CHAR_LENGHT(name) as 'Length' FROM GAME;
+
+-- UPPER() and LOWER() or UCASE() and LCASE()
+
+    SELECT UPPER(genre) as genre FROM GAME;
+
+-- Few more string functions: INSERT(), LEFT(), RIGHT()
+
+    SELECT LEFT(name, 1) FROM GAME;

@@ -1,0 +1,54 @@
+-- SAMPLE DATA GAME TABLE
+
+    CREATE TABLE GAME
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(50) NOT NULL,
+        nickname VARCHAR(50) NOT NULL,
+        genre VARCHAR(50) NOT NULL,
+        price INT DEFAULT 20,
+        stars INT DEFAULT 0,
+        release DATETIME,
+        teaser_date DATE,
+        teaser_time TIME,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        review VARCHAR(100)
+    );
+
+-- Date functions
+
+    SELECT name, DAY(release) FROM GAME;
+    SELECT name. DAYOFWEEK(release) FROM GAME;
+    SELECT name, DAYOFYEAR(release) FROM GAME;
+    SELECT name, MONTHNAME(release) FROM GAME;
+    SELECT name. YEAR(release) FROM GAME;
+    SELECT name, DATE(release) FROM GAME;
+
+-- Time functions
+
+    SELECT name, HOUR(teaser_time) FROM GAME;
+    SELECT name. MINUTE(teaser_time) FROM GAME;
+    SELECT name, SECOND(release) FROM GAME;
+    SELECT name, TIME(release) FROM GAME;
+
+-- Formatting dates and times
+
+    SELECT name, DATE_FORMAT(teaser_date, '%b') FROM GAME;
+    SELECT name, DATE_FORMAT(release, '%a') FROM GAME;
+
+    SELECT name, TIME_FORMAT(teaser_time, '%H') FROM GAME;   
+
+-- Date and Time math
+
+    SELECT name, DATEDIFF(CURDATE(), release) FROM GAME;
+    SELECT name, TIMEDIFF(CURTIME(), teaser_time) FROM GAME;
+
+-- Timestamps support a smaller range of dates
+-- Whenever the table row is updated the timestamp is updated
+
+    CREATE TABLE CAPTION
+    (
+        text VARCHAR(100),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    );

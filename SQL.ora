@@ -1,0 +1,141 @@
+-- Login using command MySQL
+
+-- mysql -u root -p
+
+-- Show databases
+
+    SHOW DATABASES;
+
+-- Creating a databases
+
+    CREATE DATABASE <database_name>;
+
+-- Drop a database
+
+    DROP DATABASE <database_name>;
+
+-- Use a database
+
+    USE <database_name>;
+
+-- Check which database we are working on
+
+    SELECT database();
+
+-- Datatype in SQL
+
+-- Create a table
+
+    CREATE TABLE <table_name>
+    (
+        <column_name> <data_type>,
+        <column_name> <data_type>
+    );
+
+    CREATE TABLE GAME
+    (
+        GAMENAME VARCHAR(100),
+        PRICE INT
+    );
+
+-- Show list of tables in the database
+
+    SHOW TABLES;
+
+-- Show columns from a database table
+
+    SHOW COLUMNS FROM <table_name>;
+
+    DESC <table_name>;
+
+-- Delete a table
+
+    DROP TABLE <table_name>;
+
+-- Add data into tables
+
+    INSERT INTO GAME (GAMENAME, PRICE)
+    VALUES ('GTA-6', 69);
+
+-- Select all records from the tables
+
+    SELECT * FROM <table_name>;
+
+-- Add a not null column in a table
+
+    CREATE TABLE GAME
+    (
+        GAMENAME VARCHAR(100) NOT NULL,
+        PRICE INT
+    );
+
+-- Specify a default value for a columns
+
+    CREATE TABLE GAME
+    (
+        GAMENAME VARCHAR(100),
+        PRICE INT DEFAULT 29
+    );
+
+-- Primary key is a unique identifier
+
+    CREATE TABLE GAME
+    (
+        ID INT PRIMARY KEY,
+        GAMENAME VARCHAR(100) NOT NULL,
+        PRICE INT DEFAULT 19
+    );
+
+    CREATE TABLE GAME
+    (
+        ID INT,
+        GAMENAME VARCHAR(100) NOT NULL,
+        PRICE INT DEFAULT 19,
+        PRIMARY KEY(ID)
+    );
+
+-- Make a column increment using AUTO_INCREMENT
+
+    CREATE TABLE GAME
+    (
+        ID INT AUTO_INCREMENT,
+        GAMENAME VARCHAR(100) NOT NULL,
+        PRICE INT DEFAULT 19,
+        PRIMARY KEY(ID)
+    );
+
+-- CRUD in SQL stands for Create, Read, Update and Delete
+
+-- Read data from a table (SELECT)
+
+    SELECT <column_name> FROM <table_name>;
+
+    SELECT GAMENAME, PRICE FROM GAME;
+
+-- The WHERE clause
+
+    SELECT GAMENAME, PRICE FROM GAME PRICE > 20;
+
+-- Aliases are names given to a column for a view (AS)
+
+    SELECT GAMENAME AS NAME FROM GAME;
+
+-- Update data in a table (UPDATE/SET)
+
+    UPDATE <table_name> SET <column_name> = <value>
+    WHERE <condition>;
+
+    UPDATE GAME SET GAMENAME = 'GTA-5', PRICE = 10
+    WHERE GAMENAME = 'GTA-6';
+
+-- Try selecting before updating
+
+-- Delete rows from a table (DELETE)
+
+    DELETE FROM <table_name> WHERE <condition>;
+
+    DELETE FROM GAME WHERE GAMENAME = 'GTA-5';
+
+-- Show warnings in the SQL command line
+
+    SHOW WARNINGS;

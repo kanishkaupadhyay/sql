@@ -1,0 +1,41 @@
+# CHAR vs VARCHAR
+
+- CHAR are fixed in SIZE, VARCHAR are variable
+- For example I defined a column with CHAR(2), the size of the data for each row is going to be 2 bytes, even though I store something less that 2 characters.
+- Value of the CHAR can be between 0 and 255.
+- When CHAR are stored, they are right-padded with spaces to the specified length.
+- When CHAR values are retrieved, trailing spaces are removed unless the PAD_CHAR_TO_FULL_LENGTH SQL mode is enabled.
+- CHAR is faster for fixed lenght text.
+
+# INT, TINYINT, BIGINT etc
+
+- Use UNSIGNED keyword to allow only positive numbers
+
+- TINYINT -> 1 byte
+- SMALLINT -> 2 bytes
+- MEDIUMINT -> 3 bytes
+- INT -> 4 bytes
+- BIGINT -> 8 bytes
+
+# DECIMAL, FLOAT and DOUBLE
+
+- FLOAT -> 4 bytes 
+- DOUBLE - 8 bytes
+- Use DECIMAL for precise storage
+- FLOAT starts getting precision issues around 7 digits after decimal point.
+- DOUBLE starts gettig precision issues around 15 digits after decimal point.
+
+# DATE and TIME
+
+- DATE -> values with a DATE but no TIME
+- 'YYYY-MM-DD' format
+- TIME -> values with a TIME but no DATE
+- 'HH:MM:SS' format
+- DATETIME - values with a DATE and TIME
+- 'YYYY-MM-DD HH:MM:SS' format
+
+# CURRENT_DATE/CURDATE, CURRENT_TIME/CURTIME and CURRENT_TIMESTAMP/NOW
+
+- SELECT CURTIME();
+- SELECT CURDATE();
+- SELECT NOW();

@@ -1,0 +1,114 @@
+-- Relationships
+-- One to One Relationship (A person can have only one aadhar number)
+-- One to Many Relationship (One book can have multiple reviews)
+-- Many to Many Relationship (Books can have many Authors and Authors can write multiple books)
+
+-- One to many Relationship
+-- Need to create two tables CUSTOMERS AND ORDERS
+
+    CREATE TABLE CUSTOMERS
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY
+        first_name VARCHAR(100),
+        last_name VARCHAR(100),
+        email VARCHAR(200),
+    );
+
+-- One way of adding foreign KEY
+
+    CREATE TABLE ORDERS
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        order_date DATE,
+        amount DECIMAL(5,2),
+        cust_id INT,
+        FOREIGN KEY (cust_id) REFERENCES CUSTOMERS (id)
+    );
+
+-- JOINS 
+
+-- CROSS JOIN - Joins each row from the first table with every row of the second table 
+
+    SELECT * FROM CUSTOMERS, ORDERS
+
+-- INNER JOIN - Select all records from table A and B where the join condition is met
+-- Select all the customers and their order summary
+
+    SELECT
+        first_name,
+        last_name, 
+        order_date, 
+        amount 
+    FROM 
+        CUSTOMERS
+            JOIN 
+        ORDERS ON CUSTOMERS.id = ORDERS.cust_id;
+
+    SELECT * FROM ORDERS
+        JOIN 
+    CUSTOMERS ON CUSTOMERS.id = ORDERS.cust_id;
+
+
+-- INNER JOIN with GROUP BY
+-- Sum of orders for the customers with their first name and last name
+
+    SELECT 
+        first_name, SUM(amount) as total_expenditure 
+    FROM 
+        CUSTOMERS
+            INNER JOIN 
+        ORDERS ON ORDERS.cust_id = CUSTOMERS.id
+        GROUP BY first_name, last_name;
+
+-- LEFT JOIN - Select everything from A, along with any matching records in B (rows can have null values)
+
+    SELECT 
+        first_name, last_name, order_date, amount 
+    FROM 
+        CUSTOMERS C,
+            LEFT JOIN 
+        ORDERS O ON C.id = O.cust_id;
+
+-- LEFT JOIN with GROUP BY
+
+    SELECT 
+        first_name, 
+        last_name, 
+        IFNULL(SUM(amount), 0) AS spent 
+    FROM 
+        CUSTOMERS
+            LEFT JOIN 
+        ORDERS ON CUSTOMERS.id = ORDERS.cust_id
+    GROUP BY first_name, last_name;
+
+-- RIGHT JOIN - Select everything from A, along with any matching records in B. (rows may contain null values)
+
+    SELECT 
+        first_name,
+        last_name,
+        order_date,
+        amount
+    FROM
+        CUSTOMERS
+            RIGHT JOIN
+        ORDERS ON CUSTOMERS.id = ORDERS.cust_id;
+
+-- On Delete Cascade
+-- What should happen when we delete a customer from the database where there is an order associated with it?
+
+    CREATE TABLE CUSTOMERS
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY
+        first_name VARCHAR(100),
+        last_name VARCHAR(100),
+        email VARCHAR(200),
+    );
+
+    CREATE TABLE ORDERS
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        order_date DATE,
+        amount DECIMAL(5,2),
+        cust_id INT,
+        FOREIGN KEY (cust_id) REFERENCES CUSTOMERS (id) ON DELETE CASCADE
+    );

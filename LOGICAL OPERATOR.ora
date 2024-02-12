@@ -1,0 +1,76 @@
+-- SAMPLE DATA GAME TABLE
+
+    CREATE TABLE GAME
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(50) NOT NULL,
+        nickname VARCHAR(50) NOT NULL,
+        genre VARCHAR(50) NOT NULL,
+        price INT DEFAULT 20,
+        stars INT DEFAULT 0,
+        release DATETIME,
+        teaser_date DATE,
+        teaser_time TIME,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        review VARCHAR(100)
+    );
+
+-- Not equal
+
+    SELECT name from GAME WHERE genre != 'Horror';
+
+-- Not like
+
+    SELECT name from GAME WHERE name NOT LIKE '%field%';
+
+-- Greater than
+
+    SELECT name, genre FROM GAME WHERE price > 20;
+    SELECT name, genre FROM GAME WHERE release >  '2017-10-01 22:45:50';
+
+-- Less than or equal to
+
+    SELECT name, genre FROM GAME WHERE price < 20;
+    SELECT name, genre FROM GAME WHERE price <= 20;
+
+-- Logical AND
+
+    SELECT name, genre FROM GAME WHERE price > 20 AND genre = 'FPS';
+    SELECT name, genre FROM GAME WHERE CHAR_LENGTH(name) > 20 AND genre = 'Horror';
+
+-- Logical OR
+
+    SELECT name, genre FROM GAME WHERE price = 20 OR price = 40;
+    SELECT name FROM GAME WHERE genre = 'Horror' OR genre = 'RPG';
+
+-- BETWEEN AND NOT BETWEEN
+
+    SELECT * FROM GAME WHERE YEAR(release) BETWEEN '2012' AND '2016';
+    SELECT * FROM GAME WHERE price NOT BETWEEN 20 AND 40;
+
+-- CAST()
+
+    SELECT CAST('09:00:00' AS TIME);
+
+-- IN Operator and NOT IN Operator
+
+    SELECT * FROM GAME WHERE price IN (20, 25, 30);
+    SELECT * FROM GAME WHERE genre IN ('Horror', 'RPG', 'Shooter');
+    SELECT * FROM GAME WHERE name NOT IN ('GTA-5', 'CS:GO');
+
+-- Modulo Operator (remainder)
+
+    SELECT * FROM GAME WHERE price % 2 != 1;
+
+-- CASE Statements
+
+    SELECT name, genre
+    CASE
+        WHEN YEAR(release) > '2018' THEN 'MODERN GAME'
+        WHEN YEAR(release) BETWEEN 2010 AND 2018 THEN 'OLD GAME'
+        ELSE 'ANCIENT GAME'
+    END AS game_age
+    FROM GAME;
+
+-- IS NULL
+    SELECT * FROM GAME WHERE review IS NULL;

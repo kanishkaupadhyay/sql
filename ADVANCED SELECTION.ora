@@ -1,0 +1,50 @@
+-- SAMPLE DATA GAME TABLE
+
+    CREATE TABLE GAME
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(50) NOT NULL,
+        genre VARCHAR(50) NOT NULL,
+        price INT DEFAULT 20,
+        stars INT DEFAULT 0,
+        review VARCHAR(100)
+    );
+
+-- Select distinct element from a table
+
+    SELECT DISTINCT <column_name> FROM <table_name>;
+
+-- Sort result from a table
+
+    SELECT <column_name> FROM <table_name> ORDER BY <column_name>;
+    SELECT <column_name> FROM <table_name> ORDER BY <column_name> DESC;  
+
+
+    SELECT name, price FROM GAME ORDER BY price, stars;
+    SELECT name, prive FROM GAME ORDER BY price, stars desc;
+
+-- LIMIT the results and limit the result set starting from a row
+
+    SELECT name, price FROM GAME LIMIT 5;
+    SELECT name, price FROM GAME ORDER BY price DESC LIMIT 5;
+    SELECT name, price FROM GAME ORDER BY price DESC LIMIT 2, 3;
+
+-- Searching in a table where we don't exactly know what to search (Fuzzy searching) (LIKE)
+
+    SELECT * FROM GAME WHERE NAME LIKE '%TA%';
+
+-- Beginning is known
+
+    SELECT * FROM GAME WHERE NAME LIKE 'CS%';
+
+-- Ending is known
+
+    SELECT * FROM GAME WHERE NAME LIKE '%GO';
+
+-- Find the name of the game which is exactly 4 characters long
+
+    SELECT * FROM GAME WHERE NAME LIKE '____';
+
+-- Find the name of the game which has an 'A' at second place and is 4 characters long
+
+    SELECT * FROM GAME WHERE NAME LIKE '_A__';
