@@ -1,0 +1,66 @@
+-- SAMPLE TABLE STRUCTURE
+
+    CREATE TABLE REVIEWERS
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        first_name VARCHAR(50),
+        last_name VARCHAR(50)
+    );
+
+    CREATE TABLE SERIES
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(50),
+        released_year DATE,
+        genre VARCHAR(50)
+    );
+
+    CREATE TABLE REVIEWS
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY
+        rating DECIMAL(2,1) CHECK rating <= 10,
+        series_id INT,
+        reviewer_id INT,
+        FOREIGN KEY (series_id) REFERENCES SERIES(id),
+        FOREiGN KEY (reviewer_id) REFERENCES REVIEWERS(id)
+    );
+
+-- View - Views are stored queries that when invoked produce a result set.
+
+    CREATE VIEW review_summary AS
+    SELECT title, released_year, genre, rating, first_name, last_name FROM REVIEWS
+    JOIN SERIES ON SERIES.id = REVIEWS.series_id
+    JOIN REVIEWERS ON REVIEWERS.id = REVIEWS.reviewer_id;
+
+-- Create View
+
+    CREATE VIEW <view_name> AS <query>;
+
+-- Replacing/Altering View
+
+    CREATE OR REPLACE VIEW <view_name> AS <query>;
+
+    ALTER VIEW <view_name> AS <query>;
+
+-- DROP a View
+
+    DROP VIEW <view_name>;
+
+-- HAVING clause specifies conditions on groups, typically formed by the GROUP BY clause.
+
+    SELECT title, AVG(rating) FROM review_summary
+    GROUP BY title HAVING COUNT(rating) > 1;
+
+-- SQL Modes - affects the SQL syntax that MySQL supports and the data validation check it performs.
+
+-- There are two different Viewing Modes - Global and Session
+
+    SELECT @@GLOBAL.sql_mode;
+    SELECT @@SESSION.sql_mode;
+
+-- SETTING Modes
+
+    SET GLOBAL sql_mode = 'modes';
+    SET SESSION sql_mode = 'modes';
+
+-- STRICT_TRANS_TABLES
