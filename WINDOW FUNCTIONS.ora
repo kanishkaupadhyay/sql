@@ -1,0 +1,35 @@
+-- Window functions perform aggregate function on groups of rows, but they produce a result FOR EACH ROW.
+
+CREATE TABLE EMPLOYEES (
+    emp_no INT PRIMARY KEY AUTO_INCREMENT,
+    department VARCHAR(20),
+    salary INT
+);
+-- OVER() - it is used after the aggregate function and gives a result for every row in the table.
+
+    SELECT emp_no, AVG(salary) OVER() FROM EMPLOYEES;
+
+-- PARTITION BY - Inside of an OVER(), use PARTITION BY to form rows into group of rows
+
+    SELECT emp_no, AVG(salary) OVER(PARTITION BY department) as department_avg FROM EMPLOYEES;
+    SELECT emp_no, AVG(salary) OVER(PARTITION BY department) as department_avg,
+    AVG(salary) OVER() as average FROM EMPLOYEES;
+
+-- ORDER BY - user ORDER BY inside of OVER() clause to re-order rows within each window
+
+    SELECT emp_no, department, salary, AVG(salary) OVER (PARTITION BY department ORDER BY salary DESC) as rolling_dept_salary,
+    SUM(salary) OVER(PARTITION BY department) AS total_dept_salary
+    FROM EMPLOYEES;
+
+-- RANK(), DENSE_RANK() and, ROW_NUMBER() 
+
+    SELECT 
+        emp_no, 
+        department, 
+        salary,
+        ROW_NUMBER() OVER(PARTITION BY department ORDER BY SALARY DESC) as dept_row_number,
+        RANK() OVER(PARTITION BY department ORDER BY SALARY DESC) as dept_salary_rank,
+        RANK() OVER(ORDER BY salary DESC) as overall_rank,
+        DENSE_RANK() OVER(ORDER BY salary DESC) as overall_dense_rank,
+        ROW_NUMBER() OVER(ORDER BY salary DESC) as overall_num
+    FROM EMPLOYEES ORDER BY overall_rank;
